@@ -27,8 +27,9 @@ public class HomeController {
         return userService.getAllUsers();
     }
     @DeleteMapping("/delete/{id}")
-    public User deleteUser(@PathVariable Long id){
+    public boolean deleteUser(@PathVariable Long id){
         return userService.deleteUser(id);
+
     }
 
 

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sda.restfull.model.User;
 import pl.sda.restfull.repository.UserRepository;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 @Service
 public class UserService {
@@ -31,10 +33,12 @@ public class UserService {
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
-    public User deleteUser(Long id){
-        User user = userRepository.getOne(id);
-        userRepository.delete(user);
-        return user;
+    public boolean deleteUser(Long id){
+        if(userRepository.findById(id).isPresent()){
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 }
