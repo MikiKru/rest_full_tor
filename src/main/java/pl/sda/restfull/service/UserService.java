@@ -19,4 +19,10 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
+    public User confirmUser(Long id){
+        User user = userRepository.getOne(id);
+        // aktywacja konta
+        user.setActivity(true);
+        return userRepository.save(user);
+        }
 }

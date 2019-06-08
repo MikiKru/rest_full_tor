@@ -13,24 +13,14 @@ public class HomeController {
     public HomeController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping("/hello")           // adres wywołujący metodę
-    public String hello(){          // sygnatura metody
-        return "hello world!";
-    }
-    @GetMapping("/hello/{name}")    // adres wywołujący metodę
-    public String hello(@PathVariable String name){          // sygnatura metody
-        return "hello "+name+"!";
-    }
-
     @PostMapping("/register")    // adres wywołujący metodę
     public User register(String email, String password){          // sygnatura metody
         return userService.saveUser(email,password);
     }
-//    @PutMapping("/confirm")
-//    public User confirm(){
-//        user.setActivity(true);
-//        return user;
-//    }
+    @PutMapping("/confirm/{id}")
+    public User confirm(@PathVariable Long id){
+        return userService.confirmUser(id);
+    }
 
 
 }
