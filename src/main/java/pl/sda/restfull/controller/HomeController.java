@@ -29,7 +29,10 @@ public class HomeController {
     @DeleteMapping("/delete/{id}")
     public boolean deleteUser(@PathVariable Long id){
         return userService.deleteUser(id);
-
+    }
+    @GetMapping("users/{id}")
+    public User getUserById(Long id){
+        return userService.getUserById(id);
     }
 
 

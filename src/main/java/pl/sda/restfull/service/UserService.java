@@ -25,10 +25,13 @@ public class UserService {
     }
 
     public User confirmUser(Long id) {
-        User user = userRepository.getOne(id);
-        // aktywacja konta
-        user.setActivity(true);
-        return userRepository.save(user);
+        if(userRepository.findById(id).isPresent()) {
+            User user = userRepository.getOne(id);
+            // aktywacja konta
+            user.setActivity(true);
+            return userRepository.save(user);
+        }
+        return new User();
     }
     public List<User> getAllUsers(){
         return userRepository.findAll();
@@ -39,6 +42,12 @@ public class UserService {
             return true;
         }
         return false;
+    }
+    public User getUserById(Long id){
+        if(userRepository.findById(id).isPresent()){
+            return userRepository.getOne(id);
+        }
+        return new User();
     }
 
 }
