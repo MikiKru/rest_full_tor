@@ -33,4 +33,9 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    // metoda do aktualizacji ról użtrkownika
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
 }
