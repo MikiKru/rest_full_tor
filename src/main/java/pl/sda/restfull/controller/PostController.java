@@ -1,10 +1,7 @@
 package pl.sda.restfull.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.sda.restfull.model.enums.CategoryEnum;
 import pl.sda.restfull.service.PostService;
 
@@ -26,5 +23,9 @@ public class PostController {
             @PathVariable Long post_id,
             String new_title){
         return postService.changeTitle(user_id,post_id,new_title);
+    }
+    @DeleteMapping("/deletePost/{post_id}/{user_id}")
+    public void deletePost(@PathVariable Long post_id, Long user_id){
+        postService.removePost(user_id, post_id);
     }
 }
