@@ -29,10 +29,10 @@ public class UserService {
         return new User(); }
     public User saveUser(String email, String password) {
         User user = new User(email, password);
-        // przypisanie roli ROLE_USER po rejestracji
-        setRole(user.getId(),1L);
         // INSERT INTO user VALUES (default, ?, ?, default, default);
         userRepository.save(user);
+        // przypisanie roli ROLE_USER po rejestracji
+        setRole(user.getId(),1L);
         return user; }
 
     public User confirmUser(Long id) {
