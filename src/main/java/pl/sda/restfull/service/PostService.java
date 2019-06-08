@@ -32,4 +32,13 @@ public class PostService {
         }
         return "błędne dane id użytkownika!";
     }
+    public String changeTitle(Long user_id, Long post_id, String new_title){
+        if(userRepository.findById(user_id).isPresent()){
+            if(userRepository.getOne(user_id).getRoles().contains(roleRepository.findById(2L))){
+                Post post = postRepository.findFirstByTitle(postRepository.getOne(post_id).getTitle());
+                post.setTitle(new_title);
+                postRepository.save(post);
+                return "zmodyfikowano tytuł posta"; }
+            return "brak uprawnień"; }
+        return "błędne id użytkownika"; }
 }

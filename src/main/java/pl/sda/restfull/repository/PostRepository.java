@@ -6,4 +6,6 @@ import pl.sda.restfull.model.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post,Long> {
+    // SELECT * FROM post WHERE title = ?;
+    Post findFirstByTitle(String title);
 }
