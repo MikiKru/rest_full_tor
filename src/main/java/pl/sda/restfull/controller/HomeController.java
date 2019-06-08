@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.restfull.model.User;
 import pl.sda.restfull.service.UserService;
+import java.util.List;
 
 @RestController                     // obsługa żądań http
 public class HomeController {
@@ -20,6 +21,14 @@ public class HomeController {
     @PutMapping("/confirm/{id}")
     public User confirm(@PathVariable Long id){
         return userService.confirmUser(id);
+    }
+    @GetMapping("/users")
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+    @DeleteMapping("/delete/{id}")
+    public User deleteUser(@PathVariable Long id){
+        return userService.deleteUser(id);
     }
 
 
