@@ -2,9 +2,11 @@ package pl.sda.restfull.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.sda.restfull.model.Comment;
 import pl.sda.restfull.model.Post;
 import pl.sda.restfull.model.User;
 import pl.sda.restfull.model.enums.CategoryEnum;
+import pl.sda.restfull.repository.CommentRepository;
 import pl.sda.restfull.repository.PostRepository;
 import pl.sda.restfull.repository.RoleRepository;
 import pl.sda.restfull.repository.UserRepository;
@@ -14,14 +16,31 @@ public class PostService {
     UserRepository userRepository;
     RoleRepository roleRepository;
     PostRepository postRepository;
-
+    CommentRepository commentRepository;
     @Autowired
-    public PostService(UserRepository userRepository, RoleRepository roleRepository, PostRepository postRepository) {
+    public PostService(UserRepository userRepository, RoleRepository roleRepository, PostRepository postRepository, CommentRepository commentRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
     }
-
+    public String addComment(Long post_id, Long user_id, String comment_message){
+        if(postRepository.findById(post_id).isPresent() && userRepository.findById(user_id).isPresent()) {
+            Post post = postRepository.getOne(post_id);
+            User user = userRepository.getOne(user_id);
+            Comment comment = new Comment(comment_message, user, post);
+            commentRepository.save(comment);
+            return "dodano komentarz!";
+        }
+        return "błędne id posta lub użtrkownika";
+    }
+    public void deleteComment(Long comment_id, Long user_id){
+        User user = userRepository.getOne(user_id);
+        Comment comment = commentRepository.getOne(comment_id);
+        if(comment.getUser() == user){
+            commentRepository.delete(comment);
+        }
+    }
     public String addPost(Long user_id, String title, String content, CategoryEnum category) {
         if (userRepository.findById(user_id).isPresent()) {
             User user = userRepository.getOne(user_id);

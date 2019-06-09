@@ -21,4 +21,10 @@ public class Comment {
     @ManyToOne()
     @JoinColumn(name = "post_id")
     private Post post;
+
+    public Comment(String message, User user, Post post) {
+        this.message = message;
+        this.user = user;
+        this.post = post;
+    }
 }
