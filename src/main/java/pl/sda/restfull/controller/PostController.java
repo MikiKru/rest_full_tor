@@ -28,13 +28,13 @@ public class PostController {
     public void deletePost(@PathVariable Long post_id, Long user_id){
         postService.removePost(user_id, post_id);
     }
-    @PostMapping("addComment/{post_id}/{user_id}")
+    @PostMapping("/addComment/{post_id}/{user_id}")
     public String addComment(@PathVariable Long post_id,
                              @PathVariable Long user_id,
                              String comment_message){
         return postService.addComment(post_id,user_id,comment_message);
     }
-    @DeleteMapping("deleteComment/{comment_id}/{user_id}")
+    @DeleteMapping("/deleteComment/{comment_id}/{user_id}")
     public void deleteComment(@PathVariable Long comment_id,
                               @PathVariable Long user_id){
         postService.deleteComment(comment_id,user_id);
